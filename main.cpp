@@ -28,8 +28,10 @@ namespace nav2_random_map_generator
             int shift;
             LineTypes lineType;
 
+            bool show_map {false};
+
             //Random Map Class Default Constructor
-            RandomMap(){ 
+            RandomMap(bool show = false){ 
                 obstacle_center =  Point(0, 0);
                 obstacle_image_size = Point(0, 0);
                 obstacle_image_center = Point(0, 0);
@@ -45,6 +47,8 @@ namespace nav2_random_map_generator
                 obstacle_number = 100;
                 robot_size = 50;
                 adjusted_radius = 0;
+
+                show_map = show;
             }
 
             // Count the total number of black pixels in a given map
@@ -89,7 +93,7 @@ namespace nav2_random_map_generator
             // Loads and image from maps directory
             void
             loadImage() {
-                original_image = imread("maps/e524806506b152b5289cbfb2b76e2a04.png", CV_LOAD_IMAGE_GRAYSCALE);
+                original_image = imread("maps/0001.png", CV_LOAD_IMAGE_GRAYSCALE);
             }
 
             // save maps in a directory
@@ -146,7 +150,9 @@ namespace nav2_random_map_generator
                         try_counter = try_counter + 1;
                     }
                 }
-                showMap();
+                if (show_map == true) {
+                    showMap();
+                }
                 saveMap();
                 getFreeTargetPose(0,0,0);
                 return original_image;
@@ -157,7 +163,7 @@ namespace nav2_random_map_generator
 int 
 main( int argc, char** argv )
 {
-    nav2_random_map_generator::RandomMap mapGenerator;
+    nav2_random_map_generator::RandomMap mapGenerator(argv[0]);
     auto newMap = mapGenerator.generateMap();
     cvWaitKey(0);
     return 0;
