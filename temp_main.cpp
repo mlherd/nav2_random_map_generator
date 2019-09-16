@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include "include/map.hpp"
+#include "include/rmg.hpp"
 
 using namespace cv;
 using namespace std;
@@ -9,10 +10,7 @@ using namespace std;
 int 
 main( int argc, char** argv )
 {
-    Map new_map;
-    new_map.loadMap();
-    new_map.showMap();
-    new_map.clearMap();
-    new_map.showMap();
+    RMG generator;
+    generator.generateMap();
     return 0;
 }
