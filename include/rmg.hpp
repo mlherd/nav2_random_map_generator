@@ -22,9 +22,9 @@ class RMG {
     public:
         //member functions
         RMG();
-        void generateMap();
         bool checkArea(Map orig, Map temp, Circle obs);
         int randomNumberGenerator(int min, int max);
+        void generateMap();
 };
 
 #endif // map_hpp

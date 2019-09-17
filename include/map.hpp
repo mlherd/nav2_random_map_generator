@@ -14,17 +14,17 @@ class Map {
         // member functions
         Map();
         Map(Point);
-        void show();
-        void loadMap();
         Mat getMap();
-        void cloneMap(Mat);
-        void clearMap();
+        Point getMapCenter();
+        Point getMapSize();
         int getBlackPixelNumber();
         int getTargetPose(int pose_number, int distance , int center = 0);
         int getInitailPose(int center = 0);
-        Point getMapCenter();
+        void show();
+        void loadMap();
         void setMapSize(Point);
-        Point getMapSize();
+        void cloneMap(Mat);
+        void clearMap();
         void save();
 };
 

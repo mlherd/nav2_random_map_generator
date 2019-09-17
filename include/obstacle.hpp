@@ -21,14 +21,14 @@ class Obstacle {
 
         // member functions
         Obstacle();
+        Point getObstacleCenter();
+        int getBlackPixelNumber();
         void setFrameSize(Point);
         void setInfilation(int);
         void setBorder(int);
         void setThickness(int);
         void setShift(int);
         void setPixelValue(int);
-        Point getObstacleCenter();
-        int getBlackPixelNumber();
         void show();
 };
 

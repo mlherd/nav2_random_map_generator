@@ -18,13 +18,13 @@
 
 ## 3 - Build the Source Code
 
-    cd nav2_random_map
-    g++ main.cpp map.cpp -o map_editor `pkg-config --cflags --libs opencv`
+    cd nav2_random_map/src
+    g++ main.cpp map.cpp rmg.cpp circle.cpp obstacle.cpp -o map_editor `pkg-config --cflags --libs opencv`
 
 ## 4- Run the Program
 	
-    cd nav2_random_map
-    ./nav2_random_map
+    cd nav2_random_map/src
+    ./map_editor
 
 	
 
