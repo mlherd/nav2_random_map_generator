@@ -9,7 +9,7 @@ Circle::Circle() {
     Circle::setFrameSize(Point (Circle::radius + Circle::infilation + Circle::border, Circle::radius + Circle::infilation + Circle::border));
     //
     circle(Circle::frame, Circle::getObstacleCenter(), 
-                Circle::radius, Circle::pixel_value, Circle::thickness, Circle::lineType, Circle::shift);
+                Circle::radius + Circle::infilation/2, Circle::pixel_value, Circle::thickness, Circle::lineType, Circle::shift);
 }
 
 Circle::Circle(int r){
