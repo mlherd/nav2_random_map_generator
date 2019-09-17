@@ -2,11 +2,13 @@
 #define rmg_hpp
 #include <opencv2/opencv.hpp>
 #include "map.hpp"
+#include "circle.hpp"
 
 using namespace cv;
 
 class RMG {
     private:
+        // member variables
         int obstacle_number;
         int robot_size;
         int pixel_value;
@@ -18,9 +20,10 @@ class RMG {
         int min_obstacle_radius;
 
     public:
+        //member functions
         RMG();
         void generateMap();
-        bool checkArea(Map orig, Map temp, Map obs);
+        bool checkArea(Map orig, Map temp, Circle obs);
         int randomNumberGenerator(int min, int max);
 };
 

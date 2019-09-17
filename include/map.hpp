@@ -7,21 +7,23 @@ using namespace cv;
 
 class Map {
     public:
+        // member variables
         Mat map;
         Point size;
         
+        // member functions
         Map();
-        Map(Point map_size);
-        void showMap();
+        Map(Point);
+        void show();
         void loadMap();
         Mat getMap();
-        void cloneMap(Mat copy_map);
+        void cloneMap(Mat);
         void clearMap();
         int getBlackPixelNumber();
         int getTargetPose(int pose_number, int distance , int center = 0);
         int getInitailPose(int center = 0);
         Point getMapCenter();
-        void setMapSize(Point size);
+        void setMapSize(Point);
         Point getMapSize();
         void saveMap();
 };

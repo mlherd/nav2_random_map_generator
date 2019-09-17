@@ -1,4 +1,4 @@
-#include "include/map.hpp"
+#include "../include/map.hpp"
 
 using namespace cv;
 using namespace std;
@@ -15,7 +15,7 @@ Map::Map(Point map_size = Point (1,1)) {
 
 void 
 Map::loadMap() {
-    Map::map = imread("maps/0001.png", CV_LOAD_IMAGE_GRAYSCALE);
+    Map::map = imread("../maps/0001.png", CV_LOAD_IMAGE_GRAYSCALE);
     Map::size = Map::map.size();
 }
 
@@ -30,7 +30,7 @@ Map::cloneMap (Mat copy_map) {
 }
 
 void 
-Map::showMap() {
+Map::show() {
     namedWindow("Map", WINDOW_AUTOSIZE);
     imshow("Map", Map::map);
     cvWaitKey(0);
@@ -72,8 +72,10 @@ Map::saveMap() {
     imwrite("saved_map1.png", Map::map, compression_params);
 }
 
+// TODO
 int 
 Map::getTargetPose(int pose_number, int distance , int center) {
+    cout << "Not Complete!!!";
     Mat locations;   // output, locations of non-zero pixels
     findNonZero(Map::map, locations);
     // access pixel coordinates
@@ -81,12 +83,8 @@ Map::getTargetPose(int pose_number, int distance , int center) {
     cout << pnt;
 }
 
-//TODO
+// TODO
 int 
 Map::getInitailPose(int center) {
-    Mat locations;   // output, locations of non-zero pixels
-    findNonZero(Map::map, locations);
-    // access pixel coordinates
-    Point pnt = locations.at<Point>(0);
-    cout << pnt;
+    cout << "Not Implemented!!!";
 }
