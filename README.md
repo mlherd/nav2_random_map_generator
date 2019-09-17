@@ -1,4 +1,5 @@
-## Navigation 2 Map Editor Build and Run Instructions
+## Navigation 2 Random Map Generator 
+## Build and Run Instructions
 
 ## Tested Operating System
 
