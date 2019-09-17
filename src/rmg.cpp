@@ -68,6 +68,7 @@ RMG::generateMap() {
                 RMG::randomNumberGenerator(0, original_map.getMap().rows));
 
             auto adjusted_radius = c.radius + c.infilation/2;
+            
             // draw the same cirle in temp_map
             circle(temp_map.map, obstacle_location, adjusted_radius, 
                 c.pixel_value, c.thickness, c.lineType, c.shift);

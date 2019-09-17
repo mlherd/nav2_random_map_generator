@@ -11,7 +11,7 @@ Obstacle::Obstacle() {
     Obstacle::shift = 0;
     Obstacle::lineType = LINE_8;
     Obstacle::border = 2;
-    Obstacle::infilation = 50; // robot size
+    Obstacle::infilation = 50; // robot size in px
 }
 
 void
