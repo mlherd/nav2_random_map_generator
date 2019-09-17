@@ -25,7 +25,7 @@ class Map {
         Point getMapCenter();
         void setMapSize(Point);
         Point getMapSize();
-        void saveMap();
+        void save();
 };
 
 #endif // map_hpp

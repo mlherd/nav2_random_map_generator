@@ -65,11 +65,11 @@ Map::getBlackPixelNumber() {
 }
 
 void 
-Map::saveMap() {
+Map::save() {
     vector<int> compression_params;
     compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
     compression_params.push_back(9);
-    imwrite("saved_map1.png", Map::map, compression_params);
+    imwrite("../random_maps/random_map.png", Map::map, compression_params);
 }
 
 // TODO

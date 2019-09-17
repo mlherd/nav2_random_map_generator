@@ -85,4 +85,5 @@ RMG::generateMap() {
     // scale down the map size to 384,384
     original_map.setMapSize(Point(384,384));
     original_map.show();
+    original_map.save();
 }
