@@ -14,8 +14,6 @@ class Obstacle {
         int pixel_value;
         int thickness;
         int shift;
-        int max_obstacle_radius;
-        int min_obstacle_radius;
         int infilation;
         int border;
 

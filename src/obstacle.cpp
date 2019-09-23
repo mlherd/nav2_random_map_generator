@@ -1,7 +1,6 @@
 #include "../include/obstacle.hpp"
 
 using namespace cv;
-using namespace std;
 
 Obstacle::Obstacle() {
     Obstacle::frame = 255 * Mat::ones(Point (1,1), CV_8UC1);
@@ -11,7 +10,7 @@ Obstacle::Obstacle() {
     Obstacle::shift = 0;
     Obstacle::lineType = LINE_8;
     Obstacle::border = 2;
-    Obstacle::infilation = 50; // robot size in px
+    Obstacle::infilation = 2; // robot size in px
 }
 
 void

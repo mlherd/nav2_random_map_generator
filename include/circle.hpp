@@ -2,22 +2,20 @@
 #define circle_hpp
 
 #include "obstacle.hpp"
-#include <opencv2/opencv.hpp>
-
-using namespace cv;
 
 class Circle : public Obstacle {
     public:
         // member variables
         int radius;
-        int max_obstacle_radius = 50;
-        int min_obstacle_radius = 10;
+        int max_radius;
+        int min_radius;
 
         // member functions
         Circle();
-        Circle(int r);
+        Circle(int r, int max, int min);
         void setMaxRadius(int);
         void setMinRadius(int);
+        void setRadius(int);
 };
 
 #endif // circle_hpp

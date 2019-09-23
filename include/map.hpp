@@ -10,7 +10,7 @@ class Map {
         // member variables
         Mat map;
         Point size;
-        
+
         // member functions
         Map();
         Map(Point);
@@ -26,6 +26,9 @@ class Map {
         void cloneMap(Mat);
         void clearMap();
         void save();
+        void saveAsGazeboMap();
+        void saveAsPGM();
+        Mat invertColors(Mat);
 };
 
 #endif // map_hpp

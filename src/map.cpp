@@ -72,6 +72,29 @@ Map::save() {
     imwrite("../random_maps/random_map.png", Map::map, compression_params);
 }
 
+Mat
+Map::invertColors(Mat map) {
+    return (255 - map);
+}
+
+void 
+Map::saveAsGazeboMap() {
+    Mat inverted_map = Map::invertColors(Map::map).clone();
+    vector<int> compression_params;
+    compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
+    compression_params.push_back(9);
+    imwrite("../random_world/media/materials/texture/random_world.png", inverted_map, compression_params);
+}
+
+void
+Map::saveAsPGM() {
+    std::vector<int> compression_params; // Stores the compression parameters
+    compression_params.push_back(CV_IMWRITE_PXM_BINARY); // Set to PXM compression
+    compression_params.push_back(0); // Set type of PXM in our case PGM
+    cv::imwrite("../random_maps/random_map.pgm", Map::map, compression_params);
+}
+
+
 // TODO
 int 
 Map::getTargetPose(int pose_number, int distance , int center) {
