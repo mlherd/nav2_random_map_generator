@@ -22,11 +22,42 @@
 using namespace cv;
 using namespace std;
 
+// default global parameter values
+int robot_size = 2;
+int min_circle_r = 5;
+int max_circle_r = 20;
+int min_square_size = 5;
+int max_square_size = 20;
+
+
 // Random Map Generator Consructor
 RMG::RMG() {
     RMG::circle_number = 50;
     RMG::square_number = 50;
     RMG::show_map = false;
+}
+
+RMG::RMG(int map_id, int num_circles, int num_squares, int robot_size, int map_size_x,
+         int map_size_y, int min_circle_r, int max_circle_r, int min_square_size,
+         int max_square_size, int show_map) {
+    
+    RMG::circle_number = num_circles;
+    RMG::square_number = num_squares;
+    RMG::map_x = map_size_x;
+    RMG::map_y = map_size_y;
+
+    robot_size = robot_size;
+    min_circle_r = min_circle_r;
+    max_circle_r = max_circle_r;
+    min_square_size = min_square_size;
+    max_square_size = max_square_size;
+    
+    if (show_map == 1) {
+        RMG::show_map = true;
+    }
+    else {
+        RMG::show_map = false;
+    }
 }
 
 // Random number generator
@@ -54,7 +85,7 @@ RMG::generateMap() {
     // room_id = 0 radomly picked room
     Map original_map;
     original_map.loadMap();
-    original_map.setMapSize(Point(513, 513));
+    original_map.setMapSize(Point(map_x, map_y));
 
     // create a temp map and clone the original map
     Map temp_map;
@@ -67,72 +98,66 @@ RMG::generateMap() {
     bool location_search {true};
     auto circle_number_counter {0};
     auto square_number_counter {0};
-
-    for (int i=0; i < RMG::circle_number + RMG::square_number; i++) {
+    
+    while (((circle_number_counter + square_number_counter) != (RMG::square_number + RMG::circle_number))) {
         Circle c;
         Square s;
-        //cout << i;
 
-        // Create an obstacle image (map)
-        if (circle_number_counter <= RMG::circle_number){
-            c.setMinRadius(5);
-            c.setMaxRadius(20);
+        c.infilation = robot_size;
+        //s.infilation = robot_size;
+
+        temp_map.cloneMap(original_map.getMap());
+
+        // randomly pick a location for the new obstacle
+        Point obstacle_location =  Point(
+            RMG::randomNumberGenerator(0, original_map.getMap().cols),
+            RMG::randomNumberGenerator(0, original_map.getMap().rows));
+
+        // Create a circle obstacle image (map)
+        if (circle_number_counter != RMG::circle_number){
+            c.setMinRadius(min_circle_r);
+            c.setMaxRadius(max_circle_r);
             c.setRadius(RMG::randomNumberGenerator(c.min_radius, c.max_radius));
-        }
-        else if (square_number_counter <= RMG::square_number){
-            s.setMinSize(5);
-            s.setMaxSize(20);
-            s.setSize(RMG::randomNumberGenerator(s.min_size, s.max_size));
-        }
 
-        location_search = true;
-        auto try_counter = 0;
+            auto adjusted_radius = c.radius + c.infilation/2;
 
-        while(location_search) {
-            if (try_counter == 100) {
-                location_search = false;
-            }
-            temp_map.cloneMap(original_map.getMap());
+            // Draw the same cirle in temp_map
+            circle(temp_map.map, obstacle_location, adjusted_radius, 
+                c.pixel_value, c.thickness, c.lineType, c.shift);
 
-            // randomly pick a location for the new obstacle
-            Point obstacle_location =  Point(
-                RMG::randomNumberGenerator(0, original_map.getMap().cols),
-                RMG::randomNumberGenerator(0, original_map.getMap().rows));
-
-            if (circle_number_counter <= RMG::circle_number){
-                auto adjusted_radius = c.radius + c.infilation/2;
-
-                // Draw the same cirle in temp_map
-                circle(temp_map.map, obstacle_location, adjusted_radius, 
+            // Check if there is enough room for the obstacle at the location
+            if (RMG::checkArea(original_map, temp_map, c)){
+                circle(original_map.map, obstacle_location, c.radius,  
                     c.pixel_value, c.thickness, c.lineType, c.shift);
-
-                // check if there is enough room for the obstacle at the location
-                if (RMG::checkArea(original_map, temp_map, c)){
-                    circle(original_map.map, obstacle_location, c.radius,  
-                        c.pixel_value, c.thickness, c.lineType, c.shift);
-                    location_search = false;
-                    circle_number_counter = circle_number_counter + 1;
-                }
+                circle_number_counter = circle_number_counter + 1;
             }
-
-            else if (square_number_counter <= RMG::square_number){
-                auto adjusted_size = s.size + s.infilation;
-                
-                // Draw square in temp_map
-                Rect r = Rect(obstacle_location.x, obstacle_location.y, adjusted_size , adjusted_size);
-                rectangle(temp_map.map, r, s.pixel_value, s.thickness, s.lineType, s.shift);
-                
-                if (RMG::checkArea(original_map, temp_map, s)){
-                    r = Rect(obstacle_location.x, obstacle_location.y, s.size , s.size);
-                    rectangle(original_map.map, r, s.pixel_value, s.thickness, s.lineType, s.shift);
-                    location_search = false;
-                    square_number_counter = square_number_counter + 1;
-                }
-            }
-            try_counter = try_counter + 1;
         }
+        
+        // Create a square obstacle image (map)
+        if (square_number_counter != RMG::square_number){
+            s.setMinSize(min_square_size);
+            s.setMaxSize(max_square_size);
+            s.setSize(RMG::randomNumberGenerator(s.min_size, s.max_size));
+
+            auto adjusted_size = s.size + s.infilation;
+            
+            // Draw square in temp_map
+            Rect r = Rect(obstacle_location.x, obstacle_location.y, adjusted_size , adjusted_size);
+            rectangle(temp_map.map, r, s.pixel_value, s.thickness, s.lineType, s.shift);
+            
+            if (RMG::checkArea(original_map, temp_map, s)){
+                r = Rect(obstacle_location.x, obstacle_location.y, s.size , s.size);
+                rectangle(original_map.map, r, s.pixel_value, s.thickness, s.lineType, s.shift);
+                square_number_counter = square_number_counter + 1;
+            }
+        }
+        cout << circle_number_counter << " " << circle_number << endl << square_number_counter << " " << square_number << endl;
     }
     original_map.save(); // saves as a grayscale 8 bit .png image
-    original_map.saveAsGazeboMap();
-    original_map.saveAsPGM();
+    original_map.saveAsGazeboMap(); // saves as a grayscale (inverted colors) 8 bit .png image
+    original_map.saveAsPGM(); // saves the map for map server
+    
+    if (show_map) {
+        original_map.show();
+    }
 }

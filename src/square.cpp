@@ -57,6 +57,7 @@ Square::setMinSize(int size_min) {
 void
 Square::setSize(int size) {
     Square::size = size;
+    
     Square::setFrameSize(Point (Square::size + Square::border + Square::infilation, Square::size +  Square::border + Square::infilation));
     
     // Draw Square

@@ -20,10 +20,12 @@ Circle::Circle() {
     Circle::radius = 1;
     Circle::max_radius = 1;
     Circle::min_radius = 0;
-    //
+
+    // Set the obstacle frame size
     Circle::setFrameSize(Point (2*Circle::radius + Circle::border + Circle::infilation, 
         2*Circle::radius +  Circle::border + Circle::infilation));
-    //
+    
+    // Draw square in the obstacle frame
     circle(Circle::frame, Circle::getObstacleCenter(), 
             Circle::radius + Circle::infilation/2, Circle::pixel_value, 
                 Circle::thickness, Circle::lineType, Circle::shift);
@@ -33,10 +35,12 @@ Circle::Circle(int r, int max, int min){
     Circle::radius = r;
     Circle::max_radius = max;
     Circle::min_radius = min;
-    //
+    
+    // Set the obstacle frame size
     Circle::setFrameSize(Point (2*Circle::radius + Circle::border + Circle::infilation, 
         2*Circle::radius +  Circle::border + Circle::infilation));
-    //
+    
+    // Draw square in the obstacle frame
     circle(Circle::frame, Circle::getObstacleCenter(), 
             Circle::radius + Circle::infilation/2, Circle::pixel_value, 
                 Circle::thickness, Circle::lineType, Circle::shift);

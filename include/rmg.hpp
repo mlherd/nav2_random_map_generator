@@ -26,6 +26,8 @@ class RMG {
         int circle_number;
         int square_number;
         int robot_size;
+        int map_x;
+        int map_y;
         int pixel_value;
         int thickness;
         int shift;
@@ -37,6 +39,18 @@ class RMG {
     public:
         //member functions
         RMG();
+        RMG(int map_id,
+            int num_circles,
+            int num_squares,
+            int robot_size,
+            int map_size_x,
+            int map_size_y,        
+            int min_circle_r,
+            int max_circle_r, 
+            int min_square_size,
+            int max_square_size,
+            int show_map);
+        
         bool checkArea(Map orig, Map temp, Obstacle obs);
         int randomNumberGenerator(int min, int max);
         void generateMap();

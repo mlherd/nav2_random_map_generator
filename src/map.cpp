@@ -108,8 +108,7 @@ Map::saveAsPGM() {
     cv::imwrite("../random_maps/random_map.pgm", Map::map, compression_params);
 }
 
-
-// TODO
+// TODO -> this feature haven't fully implemented yet!
 int 
 Map::getTargetPose(int pose_number, int distance , int center) {
     cout << "Not Complete!!!";
@@ -120,7 +119,7 @@ Map::getTargetPose(int pose_number, int distance , int center) {
     cout << pnt;
 }
 
-// TODO
+// TODO -> this feature haven't fully implemented yet!
 int 
 Map::getInitailPose(int center) {
     cout << "Not Implemented!!!";

@@ -22,7 +22,36 @@ using namespace std;
 int 
 main( int argc, char** argv )
 {   
-    RMG generator;
+    string argument_names[11] = {"Map Id: ",
+                                "Number of Circles: ", 
+                                "Number of Squares: ", 
+                                "Robot size (px*0.03898): ", 
+                                "Map Size (x): ", 
+                                "Map Size (y): ", 
+                                "Min Circle Radius: ", 
+                                "Max Circle Radius: ",
+                                "Min Square Size: ",
+                                "Max Circle Radius: ",
+                                "Show Map: "
+                                };
+
+    int counter; 
+    cout << "Random Map Generator" << endl; 
+
+    if(argc != 12) {
+        cout << "Wrong Number Arguments" << endl;
+        cout << "You entered " << argc << " arguments" << endl;
+    }
+    else 
+    {
+        cout << "Settings:" << endl;
+        for(counter=0; counter < argc - 1; counter++) {
+            cout << argument_names[counter] << argv[counter + 1] << endl;
+        }
+    }
+
+    RMG generator (atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), 
+            atoi(argv[6]), atoi(argv[7]), atoi(argv[8]), atoi(argv[9]), atoi(argv[10]), atoi(argv[11]));
     generator.generateMap();
     return 0;
 }
