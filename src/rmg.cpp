@@ -22,14 +22,6 @@
 using namespace cv;
 using namespace std;
 
-// default global parameter values
-int robot_size = 2;
-int min_circle_r = 5;
-int max_circle_r = 20;
-int min_square_size = 5;
-int max_square_size = 20;
-
-
 // Random Map Generator Consructor
 RMG::RMG() {
     RMG::circle_number = 50;
@@ -45,12 +37,11 @@ RMG::RMG(int map_id, int num_circles, int num_squares, int robot_size, int map_s
     RMG::square_number = num_squares;
     RMG::map_x = map_size_x;
     RMG::map_y = map_size_y;
-
-    robot_size = robot_size;
-    min_circle_r = min_circle_r;
-    max_circle_r = max_circle_r;
-    min_square_size = min_square_size;
-    max_square_size = max_square_size;
+    RMG::robot_size = robot_size;
+    RMG::min_circle_r = min_circle_r;
+    RMG::max_circle_r = max_circle_r;
+    RMG::min_square_size = min_square_size;
+    RMG::max_square_size = max_square_size;
     
     if (show_map == 1) {
         RMG::show_map = true;
@@ -85,7 +76,7 @@ RMG::generateMap() {
     // room_id = 0 radomly picked room
     Map original_map;
     original_map.loadMap();
-    original_map.setMapSize(Point(map_x, map_y));
+    original_map.setMapSize(Point(RMG::map_x, RMG::map_y));
 
     // create a temp map and clone the original map
     Map temp_map;
@@ -98,13 +89,15 @@ RMG::generateMap() {
     bool location_search {true};
     auto circle_number_counter {0};
     auto square_number_counter {0};
+
+    auto termination_counter {0};
     
     while (((circle_number_counter + square_number_counter) != (RMG::square_number + RMG::circle_number))) {
         Circle c;
         Square s;
 
-        c.infilation = robot_size;
-        //s.infilation = robot_size;
+        c.infilation = RMG::robot_size;
+        s.infilation = RMG::robot_size;
 
         temp_map.cloneMap(original_map.getMap());
 
@@ -115,8 +108,8 @@ RMG::generateMap() {
 
         // Create a circle obstacle image (map)
         if (circle_number_counter != RMG::circle_number){
-            c.setMinRadius(min_circle_r);
-            c.setMaxRadius(max_circle_r);
+            c.setMinRadius(RMG::min_circle_r);
+            c.setMaxRadius(RMG::max_circle_r);
             c.setRadius(RMG::randomNumberGenerator(c.min_radius, c.max_radius));
 
             auto adjusted_radius = c.radius + c.infilation/2;
@@ -135,8 +128,8 @@ RMG::generateMap() {
         
         // Create a square obstacle image (map)
         if (square_number_counter != RMG::square_number){
-            s.setMinSize(min_square_size);
-            s.setMaxSize(max_square_size);
+            s.setMinSize(RMG::min_square_size);
+            s.setMaxSize(RMG::max_square_size);
             s.setSize(RMG::randomNumberGenerator(s.min_size, s.max_size));
 
             auto adjusted_size = s.size + s.infilation;
@@ -145,14 +138,22 @@ RMG::generateMap() {
             Rect r = Rect(obstacle_location.x, obstacle_location.y, adjusted_size , adjusted_size);
             rectangle(temp_map.map, r, s.pixel_value, s.thickness, s.lineType, s.shift);
             
+            // Check if there is enough room for the obstacle at the location
             if (RMG::checkArea(original_map, temp_map, s)){
                 r = Rect(obstacle_location.x, obstacle_location.y, s.size , s.size);
                 rectangle(original_map.map, r, s.pixel_value, s.thickness, s.lineType, s.shift);
                 square_number_counter = square_number_counter + 1;
             }
         }
-        cout << circle_number_counter << " " << circle_number << endl << square_number_counter << " " << square_number << endl;
+        if (termination_counter == (100 * RMG::square_number + RMG::circle_number)){
+            cout << "There is not enough room in the map for all the obstacles" << endl;
+            break;
+        }
+        termination_counter = termination_counter + 1;
     }
+
+    cout << circle_number_counter << " circles added to the map" << endl << square_number_counter << " squares added to the map" << endl;
+
     original_map.save(); // saves as a grayscale 8 bit .png image
     original_map.saveAsGazeboMap(); // saves as a grayscale (inverted colors) 8 bit .png image
     original_map.saveAsPGM(); // saves the map for map server

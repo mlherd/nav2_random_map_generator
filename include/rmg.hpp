@@ -28,13 +28,11 @@ class RMG {
         int robot_size;
         int map_x;
         int map_y;
-        int pixel_value;
-        int thickness;
-        int shift;
-        LineTypes lineType;
-        bool show_map;
-        int max_obstacle_radius;
-        int min_obstacle_radius;
+        int show_map;
+        int min_circle_r;
+        int max_circle_r;
+        int min_square_size;
+        int max_square_size;
 
     public:
         //member functions

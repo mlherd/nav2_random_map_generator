@@ -15,6 +15,7 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include "../include/rmg.hpp"
+#include <string>
 
 using namespace cv;
 using namespace std;
@@ -22,31 +23,40 @@ using namespace std;
 int 
 main( int argc, char** argv )
 {   
-    string argument_names[11] = {"Map Id: ",
-                                "Number of Circles: ", 
-                                "Number of Squares: ", 
-                                "Robot size (px*0.03898): ", 
-                                "Map Size (x): ", 
-                                "Map Size (y): ", 
-                                "Min Circle Radius: ", 
-                                "Max Circle Radius: ",
-                                "Min Square Size: ",
-                                "Max Circle Radius: ",
-                                "Show Map: "
+    string argument_names[11] = {"Map Id",
+                                "Number of Circles", 
+                                "Number of Squares", 
+                                "Robot size (px*0.03898)", 
+                                "Map Size (x)", 
+                                "Map Size (y)", 
+                                "Min Circle Radius", 
+                                "Max Circle Radius",
+                                "Min Square Size",
+                                "Max Circle Radius",
+                                "Show Map"
                                 };
 
     int counter; 
     cout << "Random Map Generator" << endl; 
 
-    if(argc != 12) {
+    if(string(argv[1]) == "h"){
+        cout << "--Argument List--" << endl;
+        for(int i=0; i < 11; i++) {
+            cout << argument_names[i] << endl;
+        }
+        return 0;
+    }
+
+    else if(argc != 12) {
         cout << "Wrong Number Arguments" << endl;
         cout << "You entered " << argc << " arguments" << endl;
+        return 0;
     }
     else 
     {
         cout << "Settings:" << endl;
         for(counter=0; counter < argc - 1; counter++) {
-            cout << argument_names[counter] << argv[counter + 1] << endl;
+            cout << argument_names[counter] << ": " << argv[counter + 1] << endl;
         }
     }
 
