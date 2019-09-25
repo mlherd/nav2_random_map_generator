@@ -1,6 +1,6 @@
 ## Navigation 2 Random Map Generator 
 
-This tool can be used for random map generation. It uses a small portion of the HouseExpo data set. The empty maps are located in the maps directory. The random map generator randomly places obstacles in grayscale maps. The maps must be in .png format. Currently, adding circles, squares, and ramps are supported. Size, shape, type, and distance between obstacles are configured by the user. Gazebo heightmap is used to create a Gazebo world model of a randomly generated map. The random_world directory can be copied in .gazebo/model directory to be used with Gazebo. The generated map size must be 2^n+1 x 2^n+1. Otherwise, it will not work with Gazebo. World model size in Gazebo is scaled to 20-meter x 20 meters.
+This tool can be used for random map generation. It uses a small portion of the HouseExpo data set. The empty maps are located in the maps directory. The random map generator randomly places obstacles in grayscale maps. The maps must be in .png format. Currently, adding circles, squares, and ramps are supported. Size, shape, type, and distance between obstacles can be configured by the user. Gazebo heightmap is used to create a Gazebo world model of a randomly generated map. The random_world directory can be copied in .gazebo/model directory to be used with Gazebo. The generated map size must be 2^n+1 x 2^n+1. Otherwise, it will not work with Gazebo. World model size in Gazebo is scaled to 20-meter x 20 meters.
 
 ### Build and Run Instructions
 
