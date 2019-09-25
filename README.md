@@ -1,6 +1,6 @@
 ## Navigation 2 Random Map Generator 
 
-This tool is for random map generation. It uses a small portion of the HouseExpo data set. It can randomly place obtacles in maps. Currently, adding circles, sqaures, and ramps are supported. Size, shape, type, and distance between obtacles are configured by user. Gazebo hightmap is used to create Gazebo world model of a randomly generated map. The random_world directory can be copied in .gazebo/model directory to be used with Gazebo. 
+This tool cen be used for random map generation. It uses a small portion of the HouseExpo data set. The empty maps are located in the maps direcotry. The random map generator randomly places obtacles in grayscale maps. The maps must be in .png format. Currently, adding circles, sqaures, and ramps are supported. Size, shape, type, and distance between obtacles are configured by user. Gazebo hightmap is used to create Gazebo world model of a randomly generated map. The random_world directory can be copied in .gazebo/model directory to be used with Gazebo. The generated map size must be 2^n+1 x 2^n+1. Otherwise, it will not work with Gazebo. World model size in Gazebo is scaled to 20 meter x 20 meter.
 
 ### Build and Run Instructions
 
