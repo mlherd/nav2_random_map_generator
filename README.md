@@ -39,3 +39,8 @@ Example:
 ## Randomly Generated Map, Navigation 2, Turtlebot 3, and Rviz
 
 ![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/rviz.png?raw=true)
+
+## Adding Ramps to the Map
+
+![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/ramp.png?raw=true)
+
