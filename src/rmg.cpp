@@ -18,6 +18,7 @@
 #include "../include/circle.hpp"
 #include "../include/square.hpp"
 #include "../include/obstacle.hpp"
+#include "../include/ramp.hpp"
 
 #include <iomanip>
 #include <sstream>
@@ -35,7 +36,7 @@ RMG::RMG() {
 
 RMG::RMG(int map_id, int num_circles, int num_squares, int robot_size, int map_size_x,
          int map_size_y, int min_circle_r, int max_circle_r, int min_square_size,
-         int max_square_size, int show_map) {
+         int max_square_size, int add_ramp, int show_map) {
     
     RMG::map_id = map_id;
     RMG::circle_number = num_circles;
@@ -47,6 +48,7 @@ RMG::RMG(int map_id, int num_circles, int num_squares, int robot_size, int map_s
     RMG::max_circle_r = max_circle_r;
     RMG::min_square_size = min_square_size;
     RMG::max_square_size = max_square_size;
+    RMG::add_ramp = add_ramp;
     
     if (show_map == 1) {
         RMG::show_map = true;
@@ -119,20 +121,27 @@ RMG::generateMap() {
     auto square_number_counter {0};
 
     auto termination_counter {0};
-    
-    while (((circle_number_counter + square_number_counter) != (RMG::square_number + RMG::circle_number))) {
+
+    auto ramp_flag {true};
+
+    if (RMG::add_ramp == 0) {
+        ramp_flag = false;
+    }
+
+    while (((circle_number_counter + square_number_counter) != (RMG::square_number + RMG::circle_number)) || ramp_flag) {
         Circle c;
         Square s;
+        Ramp ramp (100, 10);
 
         c.infilation = RMG::robot_size;
         s.infilation = RMG::robot_size;
-
-        temp_map.cloneMap(original_map.getMap());
 
         // randomly pick a location for the new obstacle
         Point obstacle_location =  Point(
             RMG::randomNumberGenerator(0, original_map.getMap().cols),
             RMG::randomNumberGenerator(0, original_map.getMap().rows));
+
+        temp_map.cloneMap(original_map.getMap());
 
         // Create a circle obstacle image (map)
         if (circle_number_counter != RMG::circle_number){
@@ -155,7 +164,7 @@ RMG::generateMap() {
         }
         
         // Create a square obstacle image (map)
-        if (square_number_counter != RMG::square_number){
+        else if (square_number_counter != RMG::square_number){
             s.setMinSize(RMG::min_square_size);
             s.setMaxSize(RMG::max_square_size);
             s.setSize(RMG::randomNumberGenerator(s.min_size, s.max_size));
@@ -173,7 +182,19 @@ RMG::generateMap() {
                 square_number_counter = square_number_counter + 1;
             }
         }
-        if (termination_counter == (100 * RMG::square_number + RMG::circle_number)){
+
+        else if (ramp_flag) {
+            Rect r = Rect(obstacle_location.x, obstacle_location.y, 100 , 10);
+            rectangle(temp_map.map, r, ramp.pixel_value, ramp.thickness, ramp.lineType, ramp.shift);
+
+            // Check if there is enough room for the obstacle at the location
+            if (RMG::checkArea(original_map, temp_map, ramp)){
+                ramp.gradient_frame.copyTo(original_map.map(cv::Rect(obstacle_location.x, obstacle_location.y, ramp.gradient_frame.cols, ramp.gradient_frame.rows)));
+                ramp_flag = false;
+            }
+        }
+
+        if (termination_counter == (100 * RMG::square_number + RMG::circle_number)) {
             cout << "There is not enough room in the map for all the obstacles" << endl;
             break;
         }

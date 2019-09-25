@@ -23,7 +23,7 @@ using namespace std;
 int 
 main( int argc, char** argv )
 {   
-    string argument_names[11] = {"Map Id",
+    string argument_names[12] = {"Map Id",
                                 "Number of Circles", 
                                 "Number of Squares", 
                                 "Robot size (px*0.03898)", 
@@ -33,6 +33,7 @@ main( int argc, char** argv )
                                 "Max Circle Radius",
                                 "Min Square Size",
                                 "Max Circle Radius",
+                                "Add Ramp",
                                 "Show Map"
                                 };
 
@@ -41,13 +42,13 @@ main( int argc, char** argv )
 
     if(string(argv[1]) == "h"){
         cout << "--Argument List--" << endl;
-        for(int i=0; i < 11; i++) {
+        for(int i=0; i < 12; i++) {
             cout << argument_names[i] << endl;
         }
         return 0;
     }
 
-    else if(argc != 12) {
+    else if(argc != 13) {
         cout << "Wrong Number Arguments" << endl;
         cout << "You entered " << argc << " arguments" << endl;
         return 0;
@@ -61,7 +62,7 @@ main( int argc, char** argv )
     }
 
     RMG generator (atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), 
-            atoi(argv[6]), atoi(argv[7]), atoi(argv[8]), atoi(argv[9]), atoi(argv[10]), atoi(argv[11]));
+            atoi(argv[6]), atoi(argv[7]), atoi(argv[8]), atoi(argv[9]), atoi(argv[10]), atoi(argv[11]), atoi(argv[12]));
     generator.generateMap();
     return 0;
 }

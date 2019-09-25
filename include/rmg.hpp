@@ -19,6 +19,7 @@
 #include "obstacle.hpp"
 
 using namespace cv;
+using namespace std;
 
 class RMG {
     private:
@@ -34,6 +35,7 @@ class RMG {
         int max_circle_r;
         int min_square_size;
         int max_square_size;
+        int add_ramp;
 
     public:
         //member functions
@@ -43,11 +45,12 @@ class RMG {
             int num_squares,
             int robot_size,
             int map_size_x,
-            int map_size_y,        
+            int map_size_y,      
             int min_circle_r,
-            int max_circle_r, 
+            int max_circle_r,
             int min_square_size,
             int max_square_size,
+            int add_ramp,
             int show_map);
         
         bool checkArea(Map orig, Map temp, Obstacle obs);

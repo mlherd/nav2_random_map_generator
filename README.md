@@ -18,15 +18,15 @@
 
 ### 2 - Run the Program
 	
-    ./map_editor <Map Id> <Number_of_Circles> <Number_of_Squares> <Robot_Size (px*0.03898)> <Map_Size(x)> <Map_Size(y)> <Min_Circle_Radius> <Max_Circle_Radius"> <Min Square_Size"> <Max_Circle_Radius"> <Show_Map>
+    ./map_generator <Map Id> <Number_of_Circles> <Number_of_Squares> <Robot_Size (px*0.03898)> <Map_Size(x)> <Map_Size(y)> <Min_Circle_Radius> <Max_Circle_Radius> <Min Square_Size> <Max_Circle_Radius> <Add Ramp> <Show_Map>
 	
 Example:
 
-    ./map_editor 10 200 200 5 513 513 5 10 5 10 1
+    ./map_generator 10 200 200 5 513 513 5 10 5 10 1 1
 
 ### 3 - Help Menu
 
-	./map_editor h
+	./map_generator h
 
 ## Randomly Generated Map Example
 
