@@ -28,8 +28,10 @@ Map::Map(Point map_size = Point (1,1)) {
 }
 
 void 
-Map::loadMap() {
-    Map::map = imread("../maps/0001.png", CV_LOAD_IMAGE_GRAYSCALE);
+Map::loadMap(string id) {
+    string address = "../maps/" + id + ".png";
+    cout << address;
+    Map::map = imread(address, CV_LOAD_IMAGE_GRAYSCALE);
     Map::size = Map::map.size();
 }
 

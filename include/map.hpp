@@ -18,6 +18,7 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
+using namespace std;
 
 class Map {
     public:
@@ -35,7 +36,7 @@ class Map {
         int getTargetPose(int pose_number, int distance , int center = 0);
         int getInitailPose(int center = 0);
         void show();
-        void loadMap();
+        void loadMap(string id);
         void setMapSize(Point);
         void cloneMap(Mat);
         void clearMap();

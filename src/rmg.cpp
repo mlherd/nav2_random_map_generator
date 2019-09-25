@@ -19,6 +19,10 @@
 #include "../include/square.hpp"
 #include "../include/obstacle.hpp"
 
+#include <iomanip>
+#include <sstream>
+#include <string>
+
 using namespace cv;
 using namespace std;
 
@@ -33,6 +37,7 @@ RMG::RMG(int map_id, int num_circles, int num_squares, int robot_size, int map_s
          int map_size_y, int min_circle_r, int max_circle_r, int min_square_size,
          int max_square_size, int show_map) {
     
+    RMG::map_id = map_id;
     RMG::circle_number = num_circles;
     RMG::square_number = num_squares;
     RMG::map_x = map_size_x;
@@ -75,7 +80,30 @@ RMG::generateMap() {
     // load a map (room) from the /maps directory
     // room_id = 0 radomly picked room
     Map original_map;
-    original_map.loadMap();
+    string id = "0";
+    ostringstream s;
+    ostringstream temp_s;
+
+    if (RMG::map_id > 1968){
+        cout << "WARNING: Map id is out of range."
+            << "The map id can be between 0 and 1968" << endl;
+        cout << "Map will be picked randomly." << endl;
+        RMG::map_id = 0;
+    }
+    
+    if (RMG::map_id == 0){
+        auto random_id = RMG::randomNumberGenerator(0,1969);
+        s << setfill('0') << setw(4) << random_id;
+        id = s.str();
+    }
+    else {
+        s << RMG::map_id;
+        id = s.str();
+        temp_s << setfill('0') << setw(4) << id;
+        id = temp_s.str();
+    }
+
+    original_map.loadMap(id);
     original_map.setMapSize(Point(RMG::map_x, RMG::map_y));
 
     // create a temp map and clone the original map

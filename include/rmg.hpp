@@ -26,6 +26,7 @@ class RMG {
         int circle_number;
         int square_number;
         int robot_size;
+        int map_id;
         int map_x;
         int map_y;
         int show_map;
