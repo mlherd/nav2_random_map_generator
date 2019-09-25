@@ -10,34 +10,32 @@
 	sudo apt-get update
     sudo apt-get upgrade
 
-- Install git
-
-		sudo apt-get install git
-
-- Install g++
-
-		sudo apt-get install g++
-
 - Install OpenCV
 
 		sudo apt-get  update
 		sudo apt-get  upgrade
 		sudo apt-get  install libopencv-dev
 
-### 2-  Clone the Project Repository
-
-    git clone https://github.com/mlherd/nav2_random_map.git
-
-### 3 - Build the Source Code
-
-    cd nav2_random_map
-    make
-
-### 4- Run the Program
+### 2 - Run the Program
 	
-    cd nav2_random_map/build
-    ./map_editor
-
+    ./map_editor <Map Id> <Number_of_Circles> <Number_of_Squares> <Robot_Size (px*0.03898)> <Map_Size(x)> <Map_Size(y)> <Min_Circle_Radius> <Max_Circle_Radius"> <Min Square_Size"> <Max_Circle_Radius"> <Show_Map>
 	
+Example:
 
+    ./map_editor 10 200 200 5 513 513 5 10 5 10 1
 
+### 3 - Help Menu
+
+	./map_editor h
+
+## Randomly Generated Map Example
+
+![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/random_map.png?raw=true)
+
+## Randomly Generated Gazebo World Example
+
+![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/gazebo.png?raw=true)
+
+## Randomly Generated Map, Navigation 2, Turtlebot 3, and Rviz
+
+![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/rviz.png?raw=true)
