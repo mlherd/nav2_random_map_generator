@@ -2,17 +2,17 @@
 
 This tool creates random map generated maps that can be used by Navigation 2 and Gazebo. It uses a small portion of the [HouseExpo](https://arxiv.org/abs/1903.09845) data set. It is a set of 2D empty hand-drawn indoor layout images. The empty maps are located in the maps directory. The random map generator randomly places obstacles in grayscale maps. The maps must be in .png format. Currently, adding circles, squares, and ramps are supported. Size, shape, type, and distance between obstacles can be configured by the user. Gazebo heightmap is used to create a Gazebo world model of a randomly generated map. The random_world directory can be copied in .gazebo/model directory to be used with Gazebo. The generated map size must be 2^n+1 x 2^n+1. Otherwise, it will not work with Gazebo. World model size in Gazebo is scaled to 20-meter x 20-meter.
 
-# Documentation
+## Documentation
 
 - [How it works](#how-it-works)
 - [Build and Run Instrunctions](#build-and-run-instructions)
-- [Examples](#randomly-generated-map-example)
+- [Examples](#examples)
 - [Videos](#videos)
 
-# How It Works
+## How It Works
 ![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/rmg.PNG?raw=true)
 
-### Build and Run Instructions
+## Build and Run Instructions
 
 ### Tested System
 
@@ -42,22 +42,23 @@ Example:
 
 	./map_generator h
 
-## Randomly Generated Map Example
+## Examples
+
+### Randomly Generated Map Example
 
 ![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/random_map.png?raw=true)
 
-## Randomly Generated Gazebo World Example
+### Randomly Generated Gazebo World Example
 
 ![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/gazebo.png?raw=true)
 
-## Randomly Generated Map, Navigation 2, Turtlebot 3, and Rviz
+### Randomly Generated Map, Navigation 2, Turtlebot 3, and Rviz
 
 ![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/rviz.png?raw=true)
 
-## Adding Ramps to the Map
+### Adding Ramps to the Map
 
 ![enter image description here](https://github.com/mlherd/nav2_random_map_generator/blob/master/doc/img/ramp.png?raw=true)
-
 
 ## Videos
 
