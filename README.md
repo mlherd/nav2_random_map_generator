@@ -29,7 +29,22 @@ This tool creates randomly generated maps and world models that can be used by N
 		sudo apt-get  update
 		sudo apt-get  upgrade
 		sudo apt-get  install libopencv-dev
+		
+#### Build
+ 
+```
+cd nav2_random_map_generator
 
+make
+```
+
+or
+
+```
+cd src
+
+g++ circle.cpp main.cpp map.cpp obstacle.cpp ramp.cpp rmg.cpp square.cpp -o random-map `pkg-config --cflags --libs opencv`
+```
 ### 2 - Run the Program
 	
     ./map_generator <Map Id> <Number_of_Circles> <Number_of_Squares> <Robot_Size (px*0.03898)> <Map_Size(x)> <Map_Size(y)> <Min_Circle_Radius> <Max_Circle_Radius> <Min Square_Size> <Max_Circle_Radius> <Add Ramp> <Show_Map>
